@@ -1,3 +1,7 @@
+# 0. prima installa sail
+composer require laravel/sail --dev
+php artisan sail:install
+
 # 1. Prima avvii i container
 sail up -d
 
