@@ -10,6 +10,9 @@ setup:
 up:
 	sail up -d
 
+down:
+	sail down
+
 fresh:
 	sail artisan migrate:fresh --seed
 
