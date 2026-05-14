@@ -1,0 +1,53 @@
+:root {
+    --primary: #E50914;
+    --secondary: #FFFFFF;
+    --dark: #050505;
+}
+
+.c-bg-dark {
+    background-color: var(--dark);
+}
+
+.font-primary{
+    font-family: 'Inter' , sans-serif;
+}
+
+.font-secondary{
+    font-family: 'Montserrat' , sans-serif;
+}
+
+.c-text-primary{
+    color: var(--primary);
+}
+
+.c-text-secondary{
+    color: var(--secondary);
+}
+
+.c-text-dark{
+    color: var(--dark);
+}
+
+.c-bg-primary{
+    background-color: var(--primary);
+}
+
+.c-bg-secondary{
+    background-color: var(--secondary);
+}
+
+.c-bg-dark{
+    background-color: var(--dark);
+}
+
+.c-border-primary{
+    border-color: var(--primary);
+}
+
+.c-border-secondary{
+    border-color: var(--secondary);
+}
+
+.c-border-dark{
+    border-color: var(--dark);
+}
