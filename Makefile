@@ -1,21 +1,22 @@
 setup:
-	sail composer install
-	sail npm install
-	sail npm install tailwindcss @tailwindcss/vite
-	sail composer require laravel/fortify livewire/livewire
-	sail artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-	sail artisan key:generate
-	sail artisan migrate
+	./vendor/bin/sail composer install
+	./vendor/bin/sail npm install
+	./vendor/bin/sail npm install tailwindcss @tailwindcss/vite
+	./vendor/bin/sail artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+	./vendor/bin/sail artisan key:generate
+	./vendor/bin/sail artisan migrate
+	./vendor/bin/sail artisan storage:link
+
 
 up:
-	sail up -d
+	./vendor/bin/sail up -d
 
 down:
-	sail down
+	./vendor/bin/sail down
 
 fresh:
-	sail artisan migrate:fresh --seed
+	./vendor/bin/sail artisan migrate:fresh --seed
 
 start:
-	sail up -d
+	./vendor/bin/sail up -d
 	make setup

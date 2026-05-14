@@ -49,7 +49,7 @@ new class extends Component
         'description' => $this->description,
         'author' => $this->author,
         'cover_image' => $coverPath,
-        'user_id' => auth()->id()
+        'user_id' => auth()->id(),
         ]);
         
         foreach ($this->documents as $pdf) {
@@ -85,15 +85,23 @@ new class extends Component
         <form class='space-y-6' wire:submit.prevent="save">
             
             @if ($errors->any())
-    <div class="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg mb-6">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg mb-6">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
+            @foreach (['success', 'error', 'warning', 'info','message'] as $type)
+            @if(session($type))
+                <div class="bg-white border border-black-500 text-white-500 p-4 rounded-lg mb-6">
+                    {{ session($type) }}
+                </div>
+            @endif
+            @endforeach
+            
             <div>
                 <label class='block text-white text-sm mb-2'>Title</label>
                 <input 
