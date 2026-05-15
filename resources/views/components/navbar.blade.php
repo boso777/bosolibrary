@@ -1,78 +1,72 @@
-<header
-    class="flex items-center justify-between px-6 py-3 md:py-4 shadow max-w-5xl rounded-full mx-auto w-full bg-white mt-10">
-    <a href="/">
-        <p>BosoLibrary</p>
-    </a>
+<div class="px-4 mt-6 w-full">
+    <div class="flex items-center justify-between px-6 py-3 shadow max-w-4xl rounded-full mx-auto bg-white relative">
 
+        {{-- Logo --}}
+        <a href="/" class="text-sm font-semibold text-gray-900">BosoLibrary</a>
 
-    <!-- elementi centrali -->
-    <nav id="menu"
-        class="max-md:absolute max-md:top-0 max-md:left-0 max-md:overflow-hidden items-center justify-center max-md:h-full max-md:w-0 transition-[width] bg-white/50 backdrop-blur flex-col md:flex-row flex gap-8 text-gray-900 text-sm font-normal">
-        <a class="hover:text-indigo-600" href="{{ route('books.index') }}">
-            All books
-        </a>
-        <a class="hover:text-indigo-600" href="{{ route('books.create') }}">
-            Insert new book
-        </a>
+        {{-- Nav desktop --}}
+        <nav class="hidden md:flex items-center gap-8 text-sm font-normal text-gray-900">
+            <a class="hover:text-indigo-600" href="{{ route('books.index') }}">All books</a>
+            <a class="hover:text-indigo-600" href="{{ route('books.create') }}">Insert new book</a>
+        </nav>
 
-        <button id="closeMenu" class="md:hidden text-gray-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </nav>
+        {{-- CTA desktop + hamburger mobile --}}
+        <div class="flex items-center gap-3">
+            @guest
+                <a href="{{ route('login') }}"
+                   class="hidden md:inline-flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition">
+                    Sign in
+                </a>
+            @endguest
 
+            @auth
+                <form action="{{ route('logout') }}" method="POST" class="hidden md:block">
+                    @csrf
+                    <button type="submit"
+                        class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition">
+                        Logout
+                    </button>
+                </form>
+            @endauth
 
-    <!-- sign in e dark theme -->
-    @guest
-        <div class="flex items-center space-x-4">
-
-            <a class="hidden md:flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition"
-                href="{{ route('login') }}">
-                Sign up
-            </a>
+            {{-- Hamburger --}}
             <button id="openMenu" class="md:hidden text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 6h16M4 12h16M4 18h16" />
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                     viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
         </div>
-    @endguest
+    </div>
 
-    @auth
-        <div class="flex items-center space-x-4">
+    {{-- Menu mobile: dropdown sotto la pill, non overlay --}}
+    <div id="mobileMenu"
+         class="hidden md:hidden max-w-4xl mx-auto mt-2 bg-white rounded-2xl shadow px-6 py-4 flex flex-col gap-4 text-sm text-gray-900">
+        <a class="hover:text-indigo-600" href="{{ route('books.index') }}">All books</a>
+        <a class="hover:text-indigo-600" href="{{ route('books.create') }}">Insert new book</a>
 
+        @guest
+            <a href="{{ route('login') }}"
+               class="inline-flex justify-center bg-indigo-600 text-white px-5 py-2 rounded-full font-medium hover:bg-indigo-700 transition">
+                Sign in
+            </a>
+        @endguest
+
+        @auth
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="hidden md:flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition">
-                    <Label></Label>Logout
+                    class="w-full bg-indigo-600 text-white px-5 py-2 rounded-full font-medium hover:bg-indigo-700 transition">
+                    Logout
                 </button>
             </form>
-            <button id="openMenu" class="md:hidden text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-        </div>
-    @endauth
-</header>
+        @endauth
+    </div>
+</div>
 
 <script>
-    const openMenu = document.getElementById('openMenu');
-    const closeMenu = document.getElementById('closeMenu');
-    const menu = document.getElementById('menu');
-
-    openMenu.addEventListener('click', () => {
-        menu.classList.remove('max-md:w-0');
-        menu.classList.add('max-md:w-full');
-    });
-
-    closeMenu.addEventListener('click', () => {
-        menu.classList.remove('max-md:w-full');
-        menu.classList.add('max-md:w-0');
+    document.getElementById('openMenu').addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+        document.getElementById('mobileMenu').classList.toggle('flex');
     });
 </script>
