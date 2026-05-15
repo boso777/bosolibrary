@@ -51,3 +51,32 @@
 .c-border-dark{
     border-color: var(--dark);
 }
+
+/* show view */
+
+.custom-div{
+    
+}
+
+
+/* tom select categories */
+
+.ts-control {
+    background-color: rgba(0, 166, 62, 0.05) !important; /* Il tuo verde trasparente */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+.ts-dropdown {
+    background-color: #1a1a1a !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.ts-dropdown .active {
+    background-color: #00A63E !important;
+    color: white !important;
+}
+.ts-control .item {
+    background-color: #00A63E !important; /* Colore dei tag selezionati */
+    color: white !important;
+    border-radius: 4px !important;
+}

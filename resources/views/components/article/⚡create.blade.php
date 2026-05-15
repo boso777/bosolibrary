@@ -93,12 +93,12 @@ new class extends Component
                 </ul>
             </div>
             @endif
-
+            
             @foreach (['success', 'error', 'warning', 'info','message'] as $type)
             @if(session($type))
-                <div class="bg-white border border-black-500 text-white-500 p-4 rounded-lg mb-6">
-                    {{ session($type) }}
-                </div>
+            <div class="bg-white border border-black-500 text-white-500 p-4 rounded-lg mb-6">
+                {{ session($type) }}
+            </div>
             @endif
             @endforeach
             
@@ -112,66 +112,67 @@ new class extends Component
                 />
             </div>
             
-            <div>
-                <label class='block text-white text-sm mb-2'>Categories</label>
-                <div class="grid grid-cols-2 gap-2">
+            <div class="mt-4">
+                <label class="block text-white text-sm mb-2">Categories</label>
+                
+                <div wire:ignore>
+                    <select id="select-categories" multiple placeholder="Scegli categorie..." autocomplete="on"
+                    class="w-full">
                     @foreach($categories as $category)
-                    <label class="flex items-center text-white/60 text-sm">
-                        <input type="checkbox" wire:model="selected_categories" value="{{ $category->id }}" class="mr-2">
-                        {{ $category->name }}
-                    </label>
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
-                </div>
+                </select>
             </div>
-            
-            <div>
-                <label class='block text-white text-sm mb-2'>Recap</label>
-                <input 
-                wire:model="description"
-                type="text" 
-                placeholder="Short recap of the book" 
-                class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition'
-                />
-            </div>
-            
-            <div>
-                <label class='block text-white text-sm mb-2'>Author</label>
-                <textarea 
-                wire:model="author"
-                placeholder="Author of the document" 
-                rows="4"
-                class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition resize-none'
-                ></textarea>
-            </div>
-            
-            <div>
-                <label class='block text-white text-sm mb-2'>Cover img</label>
-                <input 
-                wire:model="cover_image"
-                type="file"  
-                accept="image/jpeg, image/png, image/avif, image/webp"
-                class="w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 focus:outline-none focus:border-green-600 transition"
-                />
-            </div>
-            
-            <div>
-                <label class='block text-white text-sm mb-2'>Files</label>
-                <input 
-                wire:model="documents"
-                type="file"  
-                multiple
-                class="w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 focus:outline-none focus:border-green-600 transition"
-                />
-            </div>
-            
-            <div class='flex items-center justify-between'>
-                <p class='text-xs md:text-sm text-white/60 max-w-3xs'>
-                    By submitting, you agree to our <span class='text-white'>Terms</span> and <span class='text-white'>Privacy Policy</span>.
-                </p>
-                <button type="submit" class='bg-linear-to-r from-green-950 to-green-600 hover:from-green-600 hover:to-green-950 text-white text-sm px-8 md:px-16 py-3 rounded-full transition duration-300 cursor-pointer'>
-                    Submit
-                </button>
-            </div>
-        </form>
-    </div>
+        </div>
+        
+        <div>
+            <label class='block text-white text-sm mb-2'>Recap</label>
+            <input 
+            wire:model="description"
+            type="text" 
+            placeholder="Short recap of the book" 
+            class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition'
+            />
+        </div>
+        
+        <div>
+            <label class='block text-white text-sm mb-2'>Author</label>
+            <textarea 
+            wire:model="author"
+            placeholder="Author of the document" 
+            rows="4"
+            class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition resize-none'
+            ></textarea>
+        </div>
+        
+        <div>
+            <label class='block text-white text-sm mb-2'>Cover img</label>
+            <input 
+            wire:model="cover_image"
+            type="file"  
+            accept="image/jpeg, image/png, image/avif, image/webp"
+            class="w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 focus:outline-none focus:border-green-600 transition"
+            />
+        </div>
+        
+        <div>
+            <label class='block text-white text-sm mb-2'>Files</label>
+            <input 
+            wire:model="documents"
+            type="file"  
+            multiple
+            class="w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 focus:outline-none focus:border-green-600 transition"
+            />
+        </div>
+        
+        <div class='flex items-center justify-between'>
+            <p class='text-xs md:text-sm text-white/60 max-w-3xs'>
+                By submitting, you agree to our <span class='text-white'>Terms</span> and <span class='text-white'>Privacy Policy</span>.
+            </p>
+            <button type="submit" class='bg-linear-to-r from-green-950 to-green-600 hover:from-green-600 hover:to-green-950 text-white text-sm px-8 md:px-16 py-3 rounded-full transition duration-300 cursor-pointer'>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
 </div>
