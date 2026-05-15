@@ -1,4 +1,3 @@
-<x-layout>
     @switch($extension)
         @case('pdf')
             <livewire:read-pdf :book="$book"></livewire:read-pdf>
@@ -13,11 +12,11 @@
             @break
         
         @default
-            <div class="text-center bg-gray">
-                <h2 class="text-red-600">
+        <x-layout>
+            <div class=" bg-mauve-900 py-6 mt-10 grid">
+                <h2 class="text-center text-red-600 text-xl grid-cols-8">
                     Extension of the document not supported yet! Don't worry, we will fix this soon!
                 </h2>
             </div>
-    @endswitch  
-
-</x-layout>
+        </x-layout>
+    @endswitch
