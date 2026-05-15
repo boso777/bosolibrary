@@ -9,7 +9,7 @@ new class extends Component
 {
     use WithFileUploads;
     
-    public $documents = [];
+    public $document;
     public $title;
     public $description;
     public $author;
@@ -30,14 +30,14 @@ new class extends Component
     public function save(){
         
         $this->validate([
-        'documents.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
+        'document.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
         'title' => 'required|min:3',
         'description' => 'required',
         'author' => 'required',
         'selected_categories' => 'required|array',
         'cover_image' => 'nullable|image|mimes:jpeg,png,avif,webp|max:512000',
-        'documents' => 'required|array|min:1',
-        'documents.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
+        'document' => 'required|min:1',
+        'document.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
         ]);
         
         // 2. Upload Immagine
@@ -52,14 +52,9 @@ new class extends Component
         'user_id' => auth()->id(),
         ]);
         
-        foreach ($this->documents as $pdf) {
-            $path_doc = $pdf->store('books/documents', 'public');
+        $path_doc = $this->document->store('books/documents', 'public');
             
-            $book->attachments()->create([
-            'path' => $path_doc,
-            'name' => $pdf->getClientOriginalName(),
-            ]);
-        }
+        $book->attachments()->create(['path' => $path_doc, 'name' => $this->document->getClientOriginalName(),]);
         
         
         $book->categories()->attach($this->selected_categories);
@@ -127,22 +122,23 @@ new class extends Component
         
         <div>
             <label class='block text-white text-sm mb-2'>Recap</label>
-            <input 
+            <textarea 
             wire:model="description"
             type="text" 
             placeholder="Short recap of the book" 
             class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition'
-            />
+            /></textarea>
         </div>
         
         <div>
             <label class='block text-white text-sm mb-2'>Author</label>
-            <textarea 
+            <input 
+            type="text"
             wire:model="author"
             placeholder="Author of the document" 
             rows="4"
             class='w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 placeholder:text-white/40 placeholder:text-sm focus:outline-none focus:border-green-600 transition resize-none'
-            ></textarea>
+            >
         </div>
         
         <div>
@@ -158,9 +154,8 @@ new class extends Component
         <div>
             <label class='block text-white text-sm mb-2'>Files</label>
             <input 
-            wire:model="documents"
+            wire:model="document"
             type="file"  
-            multiple
             class="w-full bg-[#00A63E]/5 border border-white/20 rounded-lg px-4 py-3 text-white/40 focus:outline-none focus:border-green-600 transition"
             />
         </div>

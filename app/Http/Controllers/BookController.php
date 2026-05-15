@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -29,8 +30,14 @@ class BookController extends Controller
     }
 
     public function read($id)
-    {
-        $book = Book::find($id);
-        return view('article.read' , compact('book'));
-    }
+{
+    $book = Book::findOrFail($id);
+
+    $path = $book->attachments?->path;
+
+    $extension = $path ? File::extension($path) : null;
+
+    
+    return view('article.read', compact('book', 'extension'));
+}
 }

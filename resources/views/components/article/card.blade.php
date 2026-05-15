@@ -1,6 +1,6 @@
-<div class="c-bg-secondary block max-w-sm border border-default rounded-base shadow-xs">
+<div class="c-bg-secondary block max-w-sm border border-default rounded-base shadow-xs rounded-2xl">
     <a href="#">
-        <img class="rounded-t-base" src="{{Storage::url($book->cover_image)}}" alt="" />
+        <img class="rounded-2xl scale-90" src="{{Storage::url($book->cover_image)}}" alt="" />
     </a>
     <div class="p-6 text-center">
 
