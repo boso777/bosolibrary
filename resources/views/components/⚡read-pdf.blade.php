@@ -7,28 +7,20 @@ new class extends Component {
 };
 ?>
 
-<div>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BosoLibrary</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles 
-        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
-    </head>
-    <body>
-        
-    </body>
-    </html>
-    {{-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin --}}
-    <iframe src="{{ Storage::url($book->attachments->path) }}" width="100%" height="100%" allowfullscreen
-        frameborder="0"></iframe>
-    <div class="inline-flex">
-        <a href="#" onclick="history.back(); return false;"
-            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">Indietro</a>
-
+    
+    <div class="h-screen mt-2 relative">
+        {{-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin --}}
+        <iframe src="{{ Storage::url($book->attachments->path) }}" width="100%" height="100%" allowfullscreen
+            frameborder="0">
+        </iframe>
+        <div class="absolute bottom-10 left-10">
+            <a href="#" onclick="history.back(); return false;"
+                class="c-bg-primary c-text-secondary font-bold py-3 px-8 rounded-full shadow-lg hover:opacity-90 transition-all duration-200 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Library
+            </a>
+        </div>
     </div>
-</div>
+

@@ -12,3 +12,7 @@ make setup
 make start
 
 Ora sei pronto bruh!
+
+
+Stack: 
+-Epub.js v0.3 (https://github.com/futurepress/epub.js/)

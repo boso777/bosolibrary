@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
     public function home()
     {
-        return view('welcome');
+        $latestBooks = auth()->check() ? Book::with('categories')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->take(4)
+            ->get()
+            : collect();
+
+        return view('welcome', compact('latestBooks'));
     }
 
     public function index()

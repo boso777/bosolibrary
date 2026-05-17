@@ -10,7 +10,7 @@
         {{-- Grid --}}
         @if($books->isEmpty())
             <div class="text-center py-20 text-gray-400 text-sm">
-                No books yet. <a href="{{ route('books.create') }}" class="text-indigo-600 hover:underline">Add the first one.</a>
+                No books yet. <a href="{{ route('books.create') }}" class="c-text-primary hover:underline">Add the first one.</a>
             </div>
         @else
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
