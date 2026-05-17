@@ -128,7 +128,8 @@
                     </div>
                 </div>
                 <div class="flex items-start justify-end lg:order-last">
-                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Library" class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] opacity-40">
+
+                    {{-- qui metteremo qualcosa quando sapremo cosa mettere --}}
                 </div>
             </div>
         </div>
