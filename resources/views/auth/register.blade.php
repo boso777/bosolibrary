@@ -2,7 +2,7 @@
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white font-secondary uppercase tracking-widest">
-                Join <span class="c-text-primary">BosoLibrary</span>
+                Join <span class="c-text-primary">YouLib</span>
             </h2>
             <p class="mt-2 text-center text-sm text-gray-400 font-primary">Create your own digital library today</p>
         </div>

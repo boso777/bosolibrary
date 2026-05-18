@@ -13,7 +13,7 @@
                 </h1>
                 <p class="mt-6 text-lg leading-8 text-gray-300 font-primary">
                     Organize, read, and explore your collection of E-books, PDFs, and presentations in one elegant place. 
-                    BosoLibrary brings your reading experience to the next level.
+                    YouLib brings your reading experience to the next level.
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
                     <a href="{{ route('books.index') }}" 
@@ -93,7 +93,7 @@
                         <h2 class="text-base font-semibold leading-7 c-text-primary uppercase tracking-widest">Enhanced Reading</h2>
                         <p class="mt-2 font-secondary text-3xl font-bold tracking-tight c-text-secondary sm:text-4xl">Everything you need</p>
                         <p class="mt-6 text-lg leading-8 text-gray-400 font-primary">
-                            BosoLibrary is designed for enthusiasts who want their digital collection to feel as organized and accessible as a physical library.
+                            YouLib is designed for enthusiasts who want their digital collection to feel as organized and accessible as a physical library.
                         </p>
                         <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-400 lg:max-w-none">
                             <div class="relative pl-9">

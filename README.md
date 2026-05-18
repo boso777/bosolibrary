@@ -1,6 +1,6 @@
-# BosoLibrary
+# YouLib
 
-BosoLibrary is a technical implementation of a digital library management system designed for hosting, organizing, and reading electronic publications. The project leverages the Laravel ecosystem to provide a high-performance, reactive user experience.
+YouLib is a technical implementation of a digital library management system designed for hosting, organizing, and reading electronic publications. The project leverages the Laravel ecosystem to provide a high-performance, reactive user experience.
 
 ## Technical Stack
 
@@ -46,7 +46,7 @@ The project follows standard Laravel conventions with a focus on:
 1.  **Clone the repository**:
     ```bash
     git clone <repository-url>
-    cd bosolibrary
+    cd youlib
     ```
 
 2.  **Install PHP dependencies**:

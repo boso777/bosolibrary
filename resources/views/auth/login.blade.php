@@ -14,7 +14,7 @@
       @endif
 
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white font-secondary uppercase tracking-widest">
-        Sign in to <span class="c-text-primary">BosoLibrary</span>
+        Sign in to <span class="c-text-primary">YouLib</span>
     </h2>
   </div>
 
