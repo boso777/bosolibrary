@@ -1,11 +1,8 @@
 # YouLib
-
 YouLib is a technical implementation of a digital library management system designed for hosting, organizing, and reading electronic publications. The project leverages the Laravel ecosystem to provide a high-performance, reactive user experience.
 
 ## Technical Stack
-
 The application is built using the following core technologies:
-
 *   **Language**: PHP 8.3+
 *   **Framework**: Laravel 13
 *   **Reactive UI**: Livewire 4 & Alpine.js
@@ -14,6 +11,7 @@ The application is built using the following core technologies:
 *   **Asset Bundling**: Vite 8
 *   **Testing**: Pest 4
 *   **E-book Rendering**: EPUB.js, PDF.js, and JSZip
+*   **Containerization**: Laravel Sail, Docker
 
 ## Core Features
 
@@ -35,65 +33,58 @@ The project follows standard Laravel conventions with a focus on:
 *   **Database Schema**: Relational structure with support for many-to-many relationships (Books/Categories).
 
 ## Prerequisites
-
-*   PHP >= 8.3
+*   Docker & Docker Compose
+*   PHP >= 8.3 (for initial Composer bootstrap only)
 *   Composer
-*   Node.js & NPM
-*   SQLite (default) or MySQL/PostgreSQL
+
+> All other dependencies (Node.js, NPM, SQLite/MySQL) are managed inside the Sail container.
 
 ## Installation
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <repository-url>
-    cd youlib
-    ```
+### 1. Clone the repository
+```bash
+git clone <repository-url>
+cd youlib
+```
 
-2.  **Install PHP dependencies**:
-    ```bash
-    composer install
-    ```
+### 2. Install Sail dependencies (host machine)
+```bash
+composer install --ignore-platform-reqs
+```
 
-3.  **Install Frontend dependencies**:
-    ```bash
-    npm install
-    ```
+### 3. Environment Setup
+```bash
+cp .env.example .env
+```
 
-4.  **Environment Setup**:
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    ```
+### 4. Start containers and run full setup
+```bash
+./vendor/bin/sail up -d
+make setup
+```
 
-5.  **Database Migration**:
-    ```bash
-    touch database/database.sqlite
-    php artisan migrate --seed
-    ```
+This single command installs all PHP and frontend dependencies, publishes Fortify config, generates the app key, runs migrations, and links storage.
 
-6.  **Storage Link**:
-    ```bash
-    php artisan storage:link
-    ```
+## Makefile Shortcuts
+
+The project includes a `Makefile` for common development tasks:
+
+| Command | Description |
+|---|---|
+| `make setup` | Full first-time setup inside the container |
+| `make up` | Start containers and run the Vite dev server |
+| `make down` | Stop all containers |
+| `make fresh` | Re-run migrations with fresh seed data |
+| `make start` | Start containers and run full setup in one command |
 
 ## Development
 
-To start the development server with hot-reloading (Vite) and Laravel Pail:
-
+Start the environment with:
 ```bash
-composer run dev
+make up
 ```
 
-The application will be accessible at `http://localhost:8000`.
-
-## Testing
-
-The project uses Pest for feature and unit testing. Run the suite using:
-
-```bash
-composer run test
-```
+The application will be accessible at `http://localhost:8000`. Hot-reloading via Vite is included.
 
 ## License
-
-This project is open-sourced software licensed under the [MIT license](LICENSE).
+This project is open-sourced software.
