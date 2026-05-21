@@ -1,83 +1,88 @@
 <?php
+namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\WithFileUploads; 
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 new class extends Component
 {
+    
     use WithFileUploads;
     
-    public $document;
+    public $book;
     public $title;
     public $description;
     public $author;
-    public $selected_categories = [];
-    public $cover_image;
-    public $categories; // Passi le categorie alla vista;
+    // public $categories = [];
+    public $AllCategories = [];
     
+    public $newImage;
+    public $newFile;
     
-    public function mount(){
-        $this->categories = Category::all();
+    protected function rules() {
+        return [
+        'title' => 'required|string|max:255',
+        'newImage' => 'nullable|image|max:10048', // max 10MB, solo immagini
+        'newFile' => 'nullable|max:100000', // max 100MB, solo PDF/EPUB
+        ];
     }
     
-    public function testClick()
-    {
-        dd('Livewire funziona');
-    }
-    
-    public function save(){
+    public function mount(Book $book){
+        $this->book = $book;
+        $this->title = $book->title;
+        $this->description = $book->description;
+        $this->author = $book->author;
+        // $this->categories = $book->categories->pluck('id')->toArray();    
+        // $this->AllCategories = Category::all();
         
-        $this->validate([
-        'document.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
-        'title' => 'required|min:3',
-        'description' => 'required',
-        'author' => 'required',
-        'selected_categories' => 'required|array',
-        'cover_image' => 'nullable|image|mimes:jpeg,png,avif,webp|max:512000',
-        'document' => 'required|min:1',
-        'document.*' => 'mimes:pdf,epub,txt,rtf,odt,doc,docx,ppt,pptx,odp',
-        ]);
-        
-        // 2. Upload Immagine
-        $coverPath = $this->cover_image ? $this->cover_image->store('covers', 'public') : null;
-        
-        // 3. Creazione Libro (senza categorie)
-        $book = Book::create([
-        'title' => $this->title,
-        'description' => $this->description,
-        'author' => $this->author,
-        'cover_image' => $coverPath,
-        'user_id' => auth()->id(),
-        ]);
-        
-        $path_doc = $this->document->store('books', 'public');
-            
-        $book->attachments()->create(['path' => $path_doc, 'name' => $this->document->getClientOriginalName(),]);
-        
-        
-        $book->categories()->attach($this->selected_categories);
-        
-        session()->flash('message', 'Libro creato con successo.');
-        return redirect()->to('/');
-        
-        $this->reset();
         
     }
     
+    public function update(){
+        
+        $this->validate();
+        
+        $this->book->title = $this->title;
+        $this->book->description = $this->description;
+        $this->book->author = $this->author;
+        
+        // gestione immagini
+        if($this->newImage){
+            Storage::disk('public')->delete($this->book->cover_image);
+            $this->book->cover_image = $this->newImage->store('covers', 'public');
+        }
+        
+        
+        // gestione file
+        if($this->newFile){
+                Storage::disk('public')->delete($this->book->attachments->path);
+                $this->book->attachments->update(['path' => $this->newFile->store('books', 'public')]);
+        }
+        
+        $this->book->save();
+        
+        $this->reset(['newImage', 'newFile']);
+        
+        session()->flash('message', 'Libro aggiornato con successo!');
+        
+    }
     
     
     
-};
+    
+    
+}
 ?>
 
 <div>
+    {{-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius --}}
     
-    {{-- Order your soul. Reduce your wants. - Augustine --}}
     
     <div class='flex justify-content-center align-center max-w-lg max-md:mx-auto c-bg-dark backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl'>
-        <form class='space-y-6' wire:submit.prevent="save">
+        <form class='space-y-6' wire:submit.prevent="update">
             
             @if ($errors->any())
             <div class="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg mb-6">
@@ -102,22 +107,22 @@ new class extends Component
                 <input 
                 wire:model="title"
                 type="text" 
-                placeholder="Insert Book Title" 
+                placeholder="{{$book->title}}" 
                 class='w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-gray-500 placeholder:text-sm focus:outline-none focus:border-red-600 transition-all duration-200'
                 />
             </div>
             
             <div class="mt-4">
-                <label class="block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary">Categories</label>
+                {{-- <label class="block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary">Categories</label> --}}
                 
-                <div wire:ignore>
+                {{-- <div wire:ignore>
                     <select id="select-categories" multiple placeholder="Choose categories..." autocomplete="on"
                     class="w-full">
-                    @foreach($categories as $category)
+                    @foreach($AllCategories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
         </div>
         
         <div>
@@ -140,31 +145,37 @@ new class extends Component
             >
         </div>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class='block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary'>Cover Image</label>
+        <div class="flex flex-col gap-y-4 justify-center align-middle">
+            
+            <div class="flex align-middle justify-center flex-col gap-y-4">
+                <div class="flex flex-col gap-y-4 justify-center align-middle">
+                    <label class='block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary'>Cover Image</label>
+                    <img class="block rounded-xl size-10/12" src="{{Storage::url($book->cover_image)}}" alt="cover del libro">
+                </div>
+            </div>
+            
+            <div class="">
+                <label class='block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary'>New Cover Image</label>
                 <input 
-                wire:model="cover_image"
+                wire:model="newImage"
                 type="file"  
                 accept="image/*"
-                class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:c-bg-primary file:c-text-secondary hover:file:opacity-90 cursor-pointer"
+                class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-2 file:text-xs file:font-semibold file:c-bg-primary file:c-text-secondary hover:file:opacity-90 cursor-pointer"
                 />
             </div>
             
             <div>
-                <label class='block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary'>Document</label>
+                <label class='block text-white text-xs uppercase tracking-widest font-semibold mb-2 font-primary'>New Document</label>
                 <input 
-                wire:model="document"
+                wire:model="newFile"
                 type="file"  
-                class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:c-bg-primary file:c-text-secondary hover:file:opacity-90 cursor-pointer"
+                class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-2 file:text-xs file:font-semibold file:c-bg-primary file:c-text-secondary hover:file:opacity-90 cursor-pointer"
                 />
             </div>
         </div>
         
-        <div class='flex items-center justify-between pt-4 border-t border-white/5'>
-            <p class='text-[10px] text-white/40 max-w-[150px] font-primary'>
-                By submitting, you agree to our <span class='text-white/60'>Terms</span> and <span class='text-white/60'>Privacy Policy</span>.
-            </p>
+        <div class='flex items-center justify-end'>
+            
             <button type="submit" class='c-bg-primary hover:opacity-90 text-white text-sm font-bold px-10 py-3 rounded-full transition duration-300 cursor-pointer shadow-lg shadow-red-900/20'>
                 Publish Book
             </button>
