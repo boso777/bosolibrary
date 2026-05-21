@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -49,4 +50,29 @@ class BookController extends Controller
 
         return view('article.read', compact('book', 'extension'));
     }
+
+    public function delete($book){
+        
+        $book = Book::findOrFail($book);
+
+        if ($book->attachments) {
+        if (Storage::disk('public')->exists($book->attachments->path)) {
+            Storage::disk('public')->delete($book->attachments->path);
+        }
+        }
+        
+        Storage::disk('public')->delete($book->cover_image);
+        
+        $book->attachments->delete();
+        $book->delete();
+        
+        return redirect()->to('index')->with('message', 'Libro eliminato con successo.');
+    }
+
+    public function edit($book){
+        
+        return view('article.edit', compact('book'));
+    }
+
+    
 }
