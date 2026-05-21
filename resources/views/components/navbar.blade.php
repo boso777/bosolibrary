@@ -3,7 +3,13 @@
 
         {{-- Logo --}}
         <a href="/" class="text-xl font-bold font-secondary c-text-secondary tracking-tight">
-            Boso<span class="c-text-primary">Library</span>
+            @auth
+            {{Auth::user()->name}}
+            @endauth
+            @guest
+            You
+            @endguest
+            <span class="c-text-primary">Lib</span>
         </a>
 
         {{-- Nav desktop --}}
