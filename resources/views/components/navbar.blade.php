@@ -15,7 +15,7 @@
         {{-- Nav desktop --}}
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium c-text-secondary font-primary">
             <a class="hover:c-text-primary transition-colors" href="{{ route('books.index') }}">All Books</a>
-            <a class="hover:c-text-primary transition-colors" href="{{ route('books.create') }}">Add Book</a>
+            <a class="hover:c-text-primary transition-colors" href="@auth {{ route('books.create') }} @endauth @guest {{ route('login') }} @endguest">Add Book</a>
         </nav>
 
         {{-- CTA desktop + hamburger mobile --}}
@@ -51,7 +51,7 @@
     <div id="mobileMenu"
          class="hidden md:hidden max-w-4xl mx-auto mt-2 c-bg-dark border border-gray-800 rounded-2xl shadow-xl px-6 py-4 flex flex-col gap-4 text-sm c-text-secondary font-primary">
         <a class="hover:c-text-primary custom-btn" href="{{ route('books.index') }}">All Books</a>
-        <a class="hover:c-text-primary custom-btn" href="{{ route('books.create') }}">Add Book</a>
+        <a class="hover:c-text-primary custom-btn" href="@auth {{ route('books.create') }} @endauth @guest {{ route('login') }} @endguest">Add Book</a>
 
         @guest
             <a href="{{ route('login') }}"
