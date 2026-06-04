@@ -16,11 +16,11 @@
                     YouLib brings your reading experience to the next level.
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="{{ route('books.index') }}" 
-                       class="rounded-full c-bg-primary px-8 py-3.5 text-sm font-semibold c-text-secondary shadow-sm hover:opacity-90 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                    <a href="@auth {{ route('books.index') }} @endauth @guest{{ route('login') }} @endguest" 
+                       class="rounded-full c-bg-primary px-6 py-3.5 text-sm font-semibold c-text-secondary shadow-sm hover:opacity-90 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
                         Explore Collection
                     </a>
-                    <a href="{{ route('books.create') }}" class="text-sm font-semibold leading-6 c-text-secondary hover:c-text-primary transition-colors">
+                    <a href="@auth {{ route('books.create') }} @endauth @guest{{ route('login') }} @endguest"  class="text-sm font-semibold leading-6 c-text-secondary hover:c-text-primary transition-colors">
                         Add a Book <span aria-hidden="true">→</span>
                     </a>
                 </div>
@@ -88,10 +88,10 @@
     <div class="relative isolate overflow-hidden bg-white/5 py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
-                <div class="lg:pr-8 lg:pt-4">
+                <div class="lg:pr-8 lg:pt-4" data-aos="fade-right">
                     <div class="lg:max-w-lg">
                         <h2 class="text-base font-semibold leading-7 c-text-primary uppercase tracking-widest">Enhanced Reading</h2>
-                        <p class="mt-2 font-secondary text-3xl font-bold tracking-tight c-text-secondary sm:text-4xl">Everything you need</p>
+                        <p class="mt-2 font-secondary text-3xl font-bold tracking-tight c-text-secondary sm:text-4xl">Your personal library</p>
                         <p class="mt-6 text-lg leading-8 text-gray-400 font-primary">
                             YouLib is designed for enthusiasts who want their digital collection to feel as organized and accessible as a physical library.
                         </p>
@@ -127,9 +127,9 @@
                         </dl>
                     </div>
                 </div>
-                <div class="flex items-start justify-end lg:order-last">
+                <div class="flex items-start justify-end lg:order-last" data-aos="fade-left">
 
-                    {{-- qui metteremo qualcosa quando sapremo cosa mettere --}}
+                    <img src="{{ asset('img/welcomepic.jpeg') }}" alt="library image" class="img-fluid rounded-xl >
                 </div>
             </div>
         </div>

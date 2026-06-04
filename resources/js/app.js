@@ -1,7 +1,12 @@
 import "tailwindcss";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 //tom select for categories settings
-
+//gestore animazioni
+AOS.init({
+    duration: 800, // Durata dell'animazione in millisecondi
+    once: true,    // L'animazione avviene solo la prima volta che si skrolla
+});
 
 //event listener su funzione specifica che da true solo quando livewire ha finito di scansionare tutto il dom
 document.addEventListener('livewire:initialized', () => {

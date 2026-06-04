@@ -16,8 +16,8 @@
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium c-text-secondary font-primary">
             @auth <a class=" transition-colors" href="{{ route('books.index') }}">All Books</a> @endauth
             <a class=" transition-colors" href="@auth {{ route('books.create') }} @endauth @guest {{ route('login') }} @endguest">Add Book</a>
-            <a class=" transition-colors" href="{{ route('books.index') }}">About us</a>
-            <a class=" transition-colors" href="{{ route('books.index') }}">Coffee time</a>
+            <a class=" transition-colors" href="#">About us</a>
+            <a class=" transition-colors" href="#">Coffee time</a>
         </nav>
 
         {{-- CTA desktop + hamburger mobile --}}
